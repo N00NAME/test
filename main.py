@@ -2,16 +2,15 @@ class Cat:
     def __init__(self, name):
         self.name = name
         self.meal = 30
-        self.home = None
 
     def __str__(self):
-        return '{} - сытость: {} \tдом: {}'.format(self.name, self.meal, self.home)
+        return '{} - сытость: {}'.format(self.name, self.meal)
 
 
 class Home:
     def __init__(self, name):
         self.name = name
-        self.bowl = None
+        self.bowl = 20
         self.dirty = False
         self.meal = 50
         self.money = 100
@@ -28,21 +27,30 @@ class Human:
     def __init__(self, name):
         self.name = name
         self.hunger = 30
-        self.home = None
+
 
     def __str__(self):
-        return '{} живет в {} - сытость: {} '.format(self.name, self.home, self.hunger)
+        return '{} - сытость: {} '.format(self.name, self.hunger)
 
     def go_home(self, home):
-        self.home = home.name
+        self.home = home
         home.dirty = False
-        print('{} вьехал в дом {}'.format(self.name, self.home))
+        print('{} вьехал в дом {}'.format(self.name, self.home.name))
 
     def get_cat(self, cat, home):
-        cat.home = home.name
+        cat.home = home
         home.bowl = 20
         home.dirty = True
 
+    def buy_cat_food(self):
+        self.home.bowl += 50
+        self.home.money -= 50
+        print('{} купил корм коту'.format(self.name))
+
+    def cleaning(self):
+        self.home.dirty = False
+        self.hunger -= 10
+        print('{} Убрался дома'.format(self.name))
 
 my_home = Home(name='My')
 print('Построили дом')
@@ -64,3 +72,11 @@ print(Kimbo)
 Bill.get_cat(cat=Kimbo, home=my_home)
 print('Поселили {} в дом {}'.format(Kimbo.name, my_home.name))
 print(my_home)
+
+Bill.buy_cat_food()
+print(my_home)
+
+Bill.cleaning()
+print(Bill)
+print(my_home)
+
