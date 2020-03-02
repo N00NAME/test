@@ -2,6 +2,7 @@ class Cat:
     def __init__(self, name):
         self.name = name
         self.meal = 30
+        self.home = None
 
     def __str__(self):
         return '{} - сытость: {}'.format(self.name, self.meal)
@@ -26,7 +27,8 @@ class Home:
 class Human:
     def __init__(self, name):
         self.name = name
-        self.hunger = 50
+        self.hunger = 100
+        self.home = None
 
     def __str__(self):
         return '{} - сытость: {} '.format(self.name, self.hunger)
@@ -49,13 +51,18 @@ class Human:
 
     def cleaning(self):
         self.home.dirty = False
-        self.hunger -= 10
+        self.hunger -= 20
         print('{} Убрался дома'.format(self.name))
 
     def work(self):
-        self.hunger -= 20
+        self.hunger -= 30
         self.home.money += 150
         print('{} сходил на работу'.format(self.name))
+
+    def eat(self):
+        self.hunger += 50
+        self.home.meal -= 50
+        print('{} поел'.format(self.name))
 
 
 my_home = Home(name='My')
@@ -89,3 +96,8 @@ print(my_home)
 Bill.work()
 print(Bill)
 print(my_home)
+
+Bill.eat()
+print(Bill)
+print(my_home)
+
