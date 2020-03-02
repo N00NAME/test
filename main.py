@@ -26,8 +26,7 @@ class Home:
 class Human:
     def __init__(self, name):
         self.name = name
-        self.hunger = 30
-
+        self.hunger = 50
 
     def __str__(self):
         return '{} - сытость: {} '.format(self.name, self.hunger)
@@ -38,6 +37,7 @@ class Human:
         print('{} вьехал в дом {}'.format(self.name, self.home.name))
 
     def get_cat(self, cat, home):
+        self.hunger -= 10
         cat.home = home
         home.bowl = 20
         home.dirty = True
@@ -51,6 +51,12 @@ class Human:
         self.home.dirty = False
         self.hunger -= 10
         print('{} Убрался дома'.format(self.name))
+
+    def work(self):
+        self.hunger -= 20
+        self.home.money += 150
+        print('{} сходил на работу'.format(self.name))
+
 
 my_home = Home(name='My')
 print('Построили дом')
@@ -80,3 +86,6 @@ Bill.cleaning()
 print(Bill)
 print(my_home)
 
+Bill.work()
+print(Bill)
+print(my_home)
