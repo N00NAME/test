@@ -1,3 +1,7 @@
+from random import randint
+from termcolor import cprint
+
+
 class Cat:
     def __init__(self, name):
         self.name = name
@@ -70,7 +74,7 @@ class Human:
         else:
             print('{} денег на корм нет'.format(self.name))
 
-    def cleaning(self):
+    def clean(self):
         self.home.dirty = False
         self.hunger -= 20
         print('{} Убрался дома'.format(self.name))
@@ -81,8 +85,8 @@ class Human:
         print('{} сходил на работу'.format(self.name))
 
     def eat(self):
-        if self.home.meal >= 50:
-            self.hunger += 50
+        if self.home.meal >= 20:
+            self.hunger += 40
             self.home.meal -= 20
             print('{} поел'.format(self.name))
         else:
@@ -97,6 +101,35 @@ class Human:
         else:
             print('{} деньги кончились'.format(self.name))
 
+    def play_counter_strike(self):
+        print('{} весь день играл в Counter-Strike'.format(self.name))
+        self.hunger -= 10
+        dice = randint(1, 14)
+        if dice == 7:
+            self.home.dirty = True
+
+    def act(self):
+        if self.hunger < 0:
+            print('{} умер от голода!'.format(self.name))
+            return
+        dice = randint(1, 6)
+        if 89 >= self.hunger <= 20:
+            self.eat()
+        elif self.home.meal <= 20:
+            self.buy_food()
+        elif self.home.bowl <= 10:
+            self.buy_cat_food()
+        elif self.home.money <= 40:
+            self.work()
+        elif self.home.dirty:
+            self.clean()
+        elif dice == 1:
+            self.work()
+        elif dice == 2 and self.hunger <= 89:
+            self.eat()
+        else:
+            self.play_counter_strike()
+
 
 my_home = Home(name='My')
 print('Построили дом')
@@ -109,37 +142,17 @@ print(Bill)
 Bill.go_home(home=my_home)
 print(Bill)
 print(my_home)
-print('------------------------------')
 
 Kimbo = Cat(name='Kimbo')
-print('Родился кот')
+print('Создали кота')
 print(Kimbo)
 
 Bill.get_cat(cat=Kimbo, home=my_home)
 print('Поселили {} в дом {}'.format(Kimbo.name, my_home.name))
 print(my_home)
 
-Bill.buy_cat_food()
-print(my_home)
-
-Bill.cleaning()
-print(Bill)
-print(my_home)
-
-Bill.work()
-print(Bill)
-print(my_home)
-
-Bill.eat()
-print(Bill)
-print(my_home)
-
-print('-----------------------')
-Kimbo.sleep()
-print(Kimbo)
-Kimbo.tear_wallpaper()
-print(Kimbo)
-print(my_home)
-Kimbo.eat()
-print(Kimbo)
-print(my_home)
+for day in range(1, 365):
+    cprint('----------- День {} -----------'.format(day), color='green')
+    Bill.act()
+    print(Bill)
+    cprint(my_home, color='cyan')
