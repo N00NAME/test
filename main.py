@@ -7,6 +7,20 @@ class Cat:
     def __str__(self):
         return '{} - сытость: {}'.format(self.name, self.meal)
 
+    def sleep(self):
+        self.meal -= 10
+        print('{} спал'.format(self.name))
+
+    def eat(self):
+        self.meal += 30
+        self.home.bowl -= 30
+        print('{} поел'.format(self.name))
+
+    def tear_wallpaper(self):
+        self.meal -= 20
+        self.home.dirty = True
+        print('{} драл обои'.format(self.name))
+
 
 class Home:
     def __init__(self, name):
@@ -101,3 +115,12 @@ Bill.eat()
 print(Bill)
 print(my_home)
 
+print('-----------------------')
+Kimbo.sleep()
+print(Kimbo)
+Kimbo.tear_wallpaper()
+print(Kimbo)
+print(my_home)
+Kimbo.eat()
+print(Kimbo)
+print(my_home)
