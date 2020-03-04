@@ -12,12 +12,15 @@ class Cat:
         print('{} спал'.format(self.name))
 
     def eat(self):
-        self.meal += 30
-        self.home.bowl -= 30
-        print('{} поел'.format(self.name))
+        if self.home.bowl >= 10:
+            self.meal += 20
+            self.home.bowl -= 10
+            print('{} поел'.format(self.name))
+        else:
+            print('{} нет корма'.format(self.name))
 
     def tear_wallpaper(self):
-        self.meal -= 20
+        self.meal -= 10
         self.home.dirty = True
         print('{} драл обои'.format(self.name))
 
@@ -50,18 +53,22 @@ class Human:
     def go_home(self, home):
         self.home = home
         home.dirty = False
-        print('{} вьехал в дом {}'.format(self.name, self.home.name))
+        print('{} въехал в дом {}'.format(self.name, self.home.name))
 
     def get_cat(self, cat, home):
         self.hunger -= 10
         cat.home = home
         home.bowl = 20
         home.dirty = True
+        print('{} подобрал кота {} домой'.format(self.name, cat.name))
 
     def buy_cat_food(self):
-        self.home.bowl += 50
-        self.home.money -= 50
-        print('{} купил корм коту'.format(self.name))
+        if self.home.money >= 30:
+            self.home.bowl += 50
+            self.home.money -= 30
+            print('{} купил корм коту'.format(self.name))
+        else:
+            print('{} денег на корм нет'.format(self.name))
 
     def cleaning(self):
         self.home.dirty = False
@@ -69,14 +76,26 @@ class Human:
         print('{} Убрался дома'.format(self.name))
 
     def work(self):
-        self.hunger -= 30
+        self.hunger -= 20
         self.home.money += 150
         print('{} сходил на работу'.format(self.name))
 
     def eat(self):
-        self.hunger += 50
-        self.home.meal -= 50
-        print('{} поел'.format(self.name))
+        if self.home.meal >= 50:
+            self.hunger += 50
+            self.home.meal -= 20
+            print('{} поел'.format(self.name))
+        else:
+            print('{} нет еды'.format(self.name))
+
+    def buy_food(self):
+        if self.home.money >= 40:
+            self.home.meal += 50
+            self.home.money -= 40
+            self.hunger -= 10
+            print('{} сходил за едой'.format(self.name))
+        else:
+            print('{} деньги кончились'.format(self.name))
 
 
 my_home = Home(name='My')
