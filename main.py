@@ -28,6 +28,19 @@ class Cat:
         self.home.dirty = True
         print('{} драл обои'.format(self.name))
 
+    def act(self):
+        dice = randint(1, 10)
+        if self.meal < 0:
+            cprint('{} умер!'.format(self.name), color='red')
+        elif self.meal < 20:
+            self.eat()
+        elif dice == 1:
+            self.tear_wallpaper()
+        elif dice == 2:
+            self.eat()
+        else:
+            self.sleep()
+
 
 class Home:
     def __init__(self, name):
@@ -117,7 +130,7 @@ class Human:
             self.eat()
         elif self.home.meal <= 20:
             self.buy_food()
-        elif self.home.bowl <= 10:
+        elif self.home.bowl <= 20:
             self.buy_cat_food()
         elif self.home.money <= 40:
             self.work()
@@ -151,8 +164,10 @@ Bill.get_cat(cat=Kimbo, home=my_home)
 print('Поселили {} в дом {}'.format(Kimbo.name, my_home.name))
 print(my_home)
 
-for day in range(1, 365):
+for day in range(1, 3600):
     cprint('----------- День {} -----------'.format(day), color='green')
     Bill.act()
+    Kimbo.act()
     print(Bill)
+    print(Kimbo)
     cprint(my_home, color='cyan')
